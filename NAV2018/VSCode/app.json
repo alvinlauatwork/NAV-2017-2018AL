@@ -1,0 +1,23 @@
+{
+  "id": "03b0f68d-2cfe-408f-be5e-dd6a63abe2e6",
+  "name": "Snooker",
+  "publisher": "Alvin Lau",
+  "brief": "",
+  "description": "Hello world - Snooker",
+  "version": "1.0.0.0",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "capabilities": [],
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "11.0.0.0",
+  "application": "11.0.0.0",
+  "showMyCode": true,
+  "idRange": {
+    "from": 50100,
+    "to": 50149    
+  }
+}
