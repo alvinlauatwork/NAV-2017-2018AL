@@ -1,0 +1,37 @@
+OBJECT Codeunit 50101 Snooker Management
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:42:58 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+          END;
+
+  }
+  CODE
+  {
+
+    PROCEDURE "Create Snooker Player From Contact"@1000000001(Contact@1000000000 : Record 5050);
+    VAR
+      SnookerPlayer@1000000001 : Record 50103;
+    BEGIN
+      IF SnookerPlayer.GET(Contact."No.") THEN
+        ERROR('Snooker player with No. %1 already exist', Contact."No.");
+      IF Contact.Type<> Contact.Type::Person THEN
+        ERROR('Contact must be a person.');
+      SnookerPlayer.INIT;
+      SnookerPlayer."No.":=Contact."No.";
+      SnookerPlayer.INSERT;
+      MESSAGE('Snooker player %1 is created.', SnookerPlayer."No.");
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

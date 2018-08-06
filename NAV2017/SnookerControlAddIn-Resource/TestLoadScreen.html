@@ -1,0 +1,21 @@
+<html>
+<head>    
+    <script src="Script/jquery.min.js"></script>
+    <script lang="javascript" src="Script/Snooker.js"></script>
+    <link rel="stylesheet" type="text/css" href="StyleSheet/Snooker.css">
+</head>        
+<body>
+    <script>
+        $(document).ready(function() {
+            $("#adjustDOM").click(function(){
+                initializeSnookerBoard('controlAddIn');
+                initHTMLEventAfterDOMInitialization();
+
+            });
+        });
+    </script>
+    <a href='#' id='adjustDOM'>Append to controlAddIn div</a>
+    <div id="controlAddIn">
+    </div>
+</body>
+</html>

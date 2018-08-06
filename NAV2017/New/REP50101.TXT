@@ -1,0 +1,153 @@
+OBJECT Report 50101 Snooker Match
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:30:40 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+  }
+  DATASET
+  {
+    { 1000000000;;DataItem;                  ;
+               DataItemTable=Table50102 }
+
+    { 1000000001;1;Column;No                 ;
+               SourceExpr="Snooker Match"."No." }
+
+    { 1000000002;1;Column;Date               ;
+               SourceExpr="Snooker Match".Date }
+
+    { 1000000003;1;Column;Time               ;
+               SourceExpr="Snooker Match".Time }
+
+    { 1000000004;1;Column;Status             ;
+               SourceExpr="Snooker Match".Status }
+
+    { 1000000005;1;Column;BestOfFrames       ;
+               SourceExpr="Snooker Match"."Best of Frames" }
+
+    { 1000000006;1;Column;Player1FullName    ;
+               SourceExpr="Snooker Match"."Snooker Player 1 Full Name" }
+
+    { 1000000007;1;Column;Player2FullName    ;
+               SourceExpr="Snooker Match"."Snooker Player 2 Full Name" }
+
+    { 1000000008;1;Column;WinnerFullName     ;
+               SourceExpr="Snooker Match"."Winner Full Name" }
+
+    { 1000000009;1;DataItem;                 ;
+               DataItemTable=Table50101;
+               DataItemLink=Snooker Match No.=FIELD(No.) }
+
+    { 1000000010;2;Column;FrameStatus        ;
+               SourceExpr="Snooker Frame".Status }
+
+    { 1000000011;2;Column;FramePlayer1TotalScore;
+               SourceExpr="Snooker Frame"."Snooker Player 1 Total Score" }
+
+    { 1000000012;2;Column;FramePlayer2TotalScore;
+               SourceExpr="Snooker Frame"."Snooker Player 2 Total Score" }
+
+    { 1000000013;2;Column;FramePlayer1MaxBreak;
+               SourceExpr="Snooker Frame"."Snooker Player 1 Max. Break" }
+
+    { 1000000014;2;Column;FramePlayer2MaxBreak;
+               SourceExpr="Snooker Frame"."Snooker Player 2 Max. Break" }
+
+    { 1000000015;2;Column;FrameWinnerFullName;
+               SourceExpr="Snooker Frame"."Winner Full Name" }
+
+  }
+  REQUESTPAGE
+  {
+    PROPERTIES
+    {
+    }
+    CONTROLS
+    {
+      { 1000000000;;Container;
+                  ContainerType=ContentArea }
+
+    }
+  }
+  LABELS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+  RDLDATA
+  {
+    <?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+</Report>
+    END_OF_RDLDATA
+  }
+}
+

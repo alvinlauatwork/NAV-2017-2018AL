@@ -1,0 +1,45 @@
+OBJECT Page 50101 Snooker Match List
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:33:26 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table50102;
+    PageType=List;
+    CardPageID=Snooker Match Card;
+  }
+  CONTROLS
+  {
+    { 1000000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1000000001;1;Group  ;
+                Name=Group;
+                GroupType=Repeater }
+
+    { 1000000002;2;Field  ;
+                SourceExpr="No." }
+
+    { 1000000003;2;Field  ;
+                SourceExpr=Date }
+
+    { 1000000004;2;Field  ;
+                SourceExpr="Snooker Player 1 Full Name" }
+
+    { 1000000005;2;Field  ;
+                SourceExpr="Snooker Player 2 Full Name" }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

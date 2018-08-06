@@ -1,0 +1,50 @@
+OBJECT Page 50103 Snooker Frame Listpart
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:33:59 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    CaptionML=ENU=Snooker Frames;
+    InsertAllowed=No;
+    DeleteAllowed=No;
+    ModifyAllowed=No;
+    SourceTable=Table50101;
+    DelayedInsert=No;
+    PageType=ListPart;
+    CardPageID=Snooker Frame Card;
+  }
+  CONTROLS
+  {
+    { 1000000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1000000001;1;Group  ;
+                Name=Group;
+                GroupType=Repeater }
+
+    { 1000000002;2;Field  ;
+                SourceExpr="Snooker Match No." }
+
+    { 1000000003;2;Field  ;
+                SourceExpr="No." }
+
+    { 1000000004;2;Field  ;
+                SourceExpr=Status }
+
+    { 1000000005;2;Field  ;
+                SourceExpr="Winner Full Name" }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

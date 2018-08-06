@@ -1,0 +1,56 @@
+OBJECT Table 50105 Snooker Frame Score
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:27:54 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    OnInsert=VAR
+               SnookerFrameScore@1000000000 : Record 50105;
+             BEGIN
+               IF "Shot No." =0 THEN BEGIN
+                 SnookerFrameScore.SETRANGE("Snooker Match No.","Snooker Match No.");
+                 SnookerFrameScore.SETRANGE("Snooker Frame No.","Snooker Frame No.");
+                 SnookerFrameScore.SETRANGE("Snooker Break No.","Snooker Break No.");
+                 IF SnookerFrameScore.FINDLAST() THEN
+                   "Shot No.":=SnookerFrameScore."Shot No."+1
+                 ELSE
+                   "Shot No.":=1;
+               END;
+             END;
+
+  }
+  FIELDS
+  {
+    { 1   ;   ;Snooker Match No.   ;Code20        ;TableRelation="Snooker Match";
+                                                   DataClassification=ToBeClassified }
+    { 2   ;   ;Snooker Frame No.   ;Integer       ;DataClassification=ToBeClassified }
+    { 3   ;   ;Snooker Break No.   ;Integer       ;DataClassification=ToBeClassified }
+    { 4   ;   ;Shot No.            ;Integer       ;DataClassification=ToBeClassified }
+    { 5   ;   ;Snooker Player No.  ;Code20        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup("Snooker Frame Break"."Snooker Player No." WHERE (Snooker Match No.=FIELD(Snooker Match No.),
+                                                                                                                        Snooker Frame No.=FIELD(Snooker Frame No.),
+                                                                                                                        Snooker Break No.=FIELD(Snooker Break No.)));
+                                                   Editable=No }
+    { 6   ;   ;Score               ;Integer       ;DataClassification=ToBeClassified }
+  }
+  KEYS
+  {
+    {    ;Snooker Match No.,Snooker Frame No.,Snooker Break No.,Shot No.;
+                                                   Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

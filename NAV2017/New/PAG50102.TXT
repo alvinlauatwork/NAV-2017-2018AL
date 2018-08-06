@@ -1,0 +1,86 @@
+OBJECT Page 50102 Snooker Match Card
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:44:47 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table50102;
+  }
+  CONTROLS
+  {
+    { 1000000000;;Container;
+                Name=ContentArea1;
+                ContainerType=ContentArea }
+
+    { 1000000009;1;Group  ;
+                Name=General;
+                GroupType=Group }
+
+    { 1000000001;2;Field  ;
+                Name=No.;
+                SourceExpr="No." }
+
+    { 1000000002;2;Field  ;
+                SourceExpr=Date }
+
+    { 1000000003;2;Field  ;
+                SourceExpr=Time }
+
+    { 1000000008;2;Field  ;
+                SourceExpr="Best of Frames" }
+
+    { 1000000013;2;Field  ;
+                SourceExpr=Status }
+
+    { 1000000010;1;Group  ;
+                Name=Players;
+                GroupType=Group }
+
+    { 1000000006;2;Field  ;
+                SourceExpr="Snooker Player 1 No.";
+                OnValidate=BEGIN
+                             CALCFIELDS("Snooker Player 1 Full Name");
+                             CurrPage.UPDATE();
+                           END;
+                            }
+
+    { 1000000004;2;Field  ;
+                SourceExpr="Snooker Player 1 Full Name" }
+
+    { 1000000007;2;Field  ;
+                SourceExpr="Snooker Player 1 Frame Won" }
+
+    { 1000000014;2;Field  ;
+                SourceExpr="Snooker Player 2 No.";
+                OnValidate=BEGIN
+                             CALCFIELDS("Snooker Player 2 Full Name");
+                             CurrPage.UPDATE();
+                           END;
+                            }
+
+    { 1000000005;2;Field  ;
+                SourceExpr="Snooker Player 2 Full Name" }
+
+    { 1000000012;2;Field  ;
+                SourceExpr="Snooker Player 2 Frames Won" }
+
+    { 1000000011;1;Part   ;
+                Name=SnookerFrameListpart;
+                SubPageLink=Snooker Match No.=FIELD(No.);
+                PagePartID=Page50103;
+                PartType=Page }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

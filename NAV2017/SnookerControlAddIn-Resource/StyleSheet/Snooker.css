@@ -1,0 +1,128 @@
+div{
+    border-style: solid;            
+    margin: 0px;
+}
+div.SnookerBoard{
+    width: 50%;
+    
+
+}
+div.MatchTopPart{
+    width: 100%;
+    background-color: red;
+    text-align: center;
+}
+div.MatchMiddlePart{
+    width: 100%;
+    min-height: 250px;
+    background-color: black;
+    color: white;
+
+}
+div.MatchBottomPart{
+    float: none;
+    width: 100%;
+    background-color: red
+
+}
+div.Player1Photo{
+    float: left;
+    width: 25%;                
+    text-align: Left;
+
+}
+div.Player2Photo{
+    float: left;
+    width: 25%;
+    text-align: right;
+}
+div.FrameScorePart{
+    float: left;
+    width: 47%;
+    text-align: center;
+}
+div.SnookerRemote
+{
+    width: 100%;         
+    border: 0px;
+    padding: 0px;
+    margin: 0px;       
+}
+div.SnookerRemoateHead 
+{
+    width: 100%;         
+    border: 0px;
+    padding: 0px;
+    margin: 0px;      
+    background-color: darkgray; 
+}
+div.SnookerRemoteBottom
+{
+    width: 100%;         
+    border: 0px;
+    padding: 0px;
+    margin: 0px;      
+    background-color: darkgray; 
+}
+
+
+div.SnookerBalls
+{
+    width: 100%;                
+    border: 0px;
+    padding: 0px;
+    margin: 0px;       
+}
+div.SnookerBall
+{
+    float: left;
+    width: 33.333%;                
+    border: 0px;
+    padding: 0px;
+    margin: 0px;       
+    height: 150px;
+}
+div.RedBall
+{
+    background:red;
+    width: 100%;                
+}
+div.YellowBall
+{
+    background: yellow;
+}
+div.GreenBall
+{
+    background: green;
+}
+div.BrownBall
+{
+    background: brown;
+}
+div.BlueBall
+{
+    background: blue;
+}
+
+div.PinkBall
+{
+    background: pink;
+}
+
+div.BlackBall
+{
+    background: black;
+}
+div.RemoteCommand
+{
+    background-color: yellow;
+    border: 1px;
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+.ActivePlayer
+{
+    font-weight: bolder;
+}

@@ -1,0 +1,88 @@
+OBJECT Table 50101 Snooker Frame
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:25:50 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    LookupPageID=Page50103;
+    DrillDownPageID=Page50104;
+  }
+  FIELDS
+  {
+    { 1   ;   ;Snooker Match No.   ;Code20        ;TableRelation="Snooker Match";
+                                                   DataClassification=ToBeClassified }
+    { 2   ;   ;No.                 ;Integer       ;DataClassification=ToBeClassified }
+    { 4   ;   ;Snooker Player 1 No.;Code20        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup("Snooker Match"."Snooker Player 1 No." WHERE (No.=FIELD(Snooker Match No.)));
+                                                   TableRelation="Snooker Player" }
+    { 5   ;   ;Snooker Player 2 No.;Code20        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup("Snooker Match"."Snooker Player 2 No." WHERE (No.=FIELD(Snooker Match No.)));
+                                                   TableRelation="Snooker Player" }
+    { 6   ;   ;Snooker Player 1 Full Name;Text100 ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Name WHERE (No.=FIELD(Snooker Player 1 No.)));
+                                                   Editable=No }
+    { 7   ;   ;Snooker Player 2 Full Name;Text100 ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Name WHERE (No.=FIELD(Snooker Player 2 No.)));
+                                                   Editable=No }
+    { 8   ;   ;Snooker Player 1 Total Score;Integer;
+                                                   FieldClass=FlowField;
+                                                   CalcFormula=Sum("Snooker Frame Score".Score WHERE (Snooker Match No.=FIELD(Snooker Match No.),
+                                                                                                      Snooker Frame No.=FIELD(No.),
+                                                                                                      Snooker Player No.=FIELD(Snooker Player 1 No.))) }
+    { 9   ;   ;Snooker Player 2 Total Score;Integer;
+                                                   FieldClass=FlowField;
+                                                   CalcFormula=Sum("Snooker Frame Score".Score WHERE (Snooker Match No.=FIELD(Snooker Match No.),
+                                                                                                      Snooker Frame No.=FIELD(No.),
+                                                                                                      Snooker Player No.=FIELD(Snooker Player 2 No.))) }
+    { 10  ;   ;Status              ;Option        ;DataClassification=ToBeClassified;
+                                                   OptionString=Open,Closed }
+    { 11  ;   ;Winner No.          ;Code20        ;TableRelation="Snooker Player".No.;
+                                                   OnLookup=VAR
+                                                              SnookerPlayerList@1000000000 : Page 50105;
+                                                              SnookerPlayer@1000000001 : Record 50103;
+                                                            BEGIN
+                                                              {
+                                                              3 times fout and a miss can lose a frame, let it be a input
+                                                              }
+                                                              CALCFIELDS("Snooker Player 1 No.","Snooker Player 2 No.");
+                                                              SnookerPlayer.SETFILTER("No.", '%1|%2',"Snooker Player 1 No.","Snooker Player 2 No.");
+                                                              SnookerPlayerList.SETTABLEVIEW(SnookerPlayer);
+                                                              SnookerPlayerList.LOOKUPMODE(TRUE);
+                                                              IF SnookerPlayerList.RUNMODAL() = ACTION::LookupOK THEN BEGIN
+                                                                SnookerPlayerList.GETRECORD(SnookerPlayer);
+                                                                "Winner No.":=SnookerPlayer."No.";
+                                                              END;
+                                                            END;
+
+                                                   DataClassification=ToBeClassified }
+    { 12  ;   ;Winner Full Name    ;Text100       ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Name WHERE (No.=FIELD(Winner No.))) }
+    { 13  ;   ;Snooker Player 1 Max. Break;Integer;FieldClass=FlowField;
+                                                   CalcFormula=Max("Snooker Frame Score".Score WHERE (Snooker Match No.=FIELD(Snooker Match No.),
+                                                                                                      Snooker Frame No.=FIELD(No.),
+                                                                                                      Snooker Player No.=FIELD(Snooker Player 1 No.))) }
+    { 14  ;   ;Snooker Player 2 Max. Break;Integer;FieldClass=FlowField;
+                                                   CalcFormula=Max("Snooker Frame Score".Score WHERE (Snooker Match No.=FIELD(Snooker Match No.),
+                                                                                                      Snooker Frame No.=FIELD(No.),
+                                                                                                      Snooker Player No.=FIELD(Snooker Player 2 No.))) }
+  }
+  KEYS
+  {
+    {    ;Snooker Match No.,No.                   ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>    
+    <script src="Script/jquery.min.js"></script>
+    <script lang="javascript" src="Script/Snooker.js"></script>
+    <link rel="stylesheet" type="text/css" href="StyleSheet/Snooker.css">
+</head>        
+        <body>
+        <script>
+            $(document).ready(function() {
+                initHTMLEventAfterDOMInitialization();
+            });
+        </script>
+        <div class="SnookerRemote">
+            <div class="SnookerRemoateHead">
+                <div class="RemoteCommand" id="SnookerRemoateHead-Player1">Player1</div>
+                <div class="RemoteCommand" id="SnookerRemoateHead-Player2">Player2</div>                
+                <div class="RemoteCommand" id="SnookerRemoateHead-ScoreColor">-</div>
+                <div class="RemoteCommand" id="SnookerRemoateHead-Score">Score</div>
+                <div class="RemoteCommand" id="SnookerRemoateHead-Fout">Fout</div>
+                <div class="RemoteCommand" id="SnookerRemoateHead-NextPlayer">Next-Player</div>
+            </div>
+            <div class="SnookerBalls"> 
+                <div class="RedBall SnookerBall" data-score="1" data-color="Red">Red</div>
+                <div class="YellowBall SnookerBall" data-score="2"  data-color="Yellow">Yellow</div>
+                <div class="GreenBall SnookerBall" data-score="3"  data-color="Green">Green</div>
+                <div class="BrownBall SnookerBall" data-score="4" data-color="Brown" >Brown</div>
+                <div class="BlueBall SnookerBall" data-score="5"  data-color="Blue">Blue</div>
+                <div class="PinkBall SnookerBall" data-score="6" data-color="Pink" >Pink</div>
+                <div class="BlackBall SnookerBall" data-score="7"  data-color="Black">Black</div>
+            </div>           
+            <div class="SnookerRemoteBottom">
+                <div class="RemoteCommand" id="SnookerRemoateBottom-NextFrame">Next Frame</div>
+                <div class="RemoteCommand" id="SnookerRemoateBottom-ForceNextFrame">Force Next Frame</div>
+                <div class="RemoteCommand" id="SnookerRemoateBottom-CorrectLast">Correct Last</div>
+                <div class="RemoteCommand" id="SnookerRemoateBottom-UpdateScreen">UpdateScreen</div>
+            </div>
+        </div>    
+        <hr>
+        <div class="SnookerBoard">
+            <div class="MatchTopPart">player 1 vs player 2</div>
+            <div class="MatchMiddlePart">
+                    <div class="Player1Photo">Player 1 Picture</div>
+                    <div class="FrameScorePart">2-3
+                    </div>
+                    <div class="Player2Photo">Player 2 Picture</div>        
+            </div>
+            <div class="MatchBottomPart">e</div>
+        </div>
+        <hr>
+        <br/>
+</body>
+</html>

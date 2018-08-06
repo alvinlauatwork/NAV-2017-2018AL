@@ -1,0 +1,160 @@
+OBJECT Page 50109 Snooker Frame Control Card
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 6:00:08 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table50101;
+    PageType=Card;
+  }
+  CONTROLS
+  {
+    { 1000000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1000000001;1;Group  ;
+                Name=General;
+                GroupType=Group }
+
+    { 1000000002;2;Field  ;
+                SourceExpr="Snooker Match No." }
+
+    { 1000000003;2;Field  ;
+                SourceExpr="No." }
+
+    { 1000000004;2;Field  ;
+                SourceExpr="Snooker Player 1 No." }
+
+    { 1000000005;2;Field  ;
+                SourceExpr="Snooker Player 2 No." }
+
+    { 1000000006;1;Group  ;
+                Name=SnookerBoard;
+                GroupType=Group }
+
+    { 1000000007;2;Field  ;
+                Name=SnookerFrameControl;
+                ControlAddIn=[SnookerControlAddIn;PublicKeyToken=c5539a3df0b8ecd1] }
+
+  }
+  CODE
+  {
+
+    LOCAL PROCEDURE UpdateClientScreen@1000000000();
+    BEGIN
+      {AL: name of this field cannot contains space. see https://stackoverflow.com/questions/35371418/nav-javascript-addin-methods-not-working
+      }
+      CALCFIELDS("Snooker Player 1 No.","Snooker Player 1 Full Name", "Snooker Player 1 Max. Break", "Snooker Player 1 Total Score");
+      CALCFIELDS("Snooker Player 2 No.","Snooker Player 2 Full Name", "Snooker Player 2 Max. Break", "Snooker Player 2 Total Score");
+
+      //MESSAGE('%1 (%2) - %3 (%4)',"Snooker Player 1 Full Name","Snooker Player 1 Total Score","Snooker Player 2 Full Name","Snooker Player 2 Total Score");
+      CurrPage.SnookerFrameControl.UpdateScreen(Rec."Snooker Player 1 No.", Rec."Snooker Player 1 Full Name", Rec."Snooker Player 1 Total Score",
+        Rec."Snooker Player 2 No.", Rec."Snooker Player 2 Full Name", Rec."Snooker Player 2 Total Score");
+    END;
+
+    EVENT SnookerFrameControl@-1000000007::ControlAddInReady@1();
+    BEGIN
+      UpdateClientScreen;
+    END;
+
+    EVENT SnookerFrameControl@-1000000007::RequestUpdate@2();
+    BEGIN
+      UpdateClientScreen;
+    END;
+
+    EVENT SnookerFrameControl@-1000000007::Score@3(playerNo@1000000002 : Text;score@1000000001 : Integer;isNewBreak@1000000000 : Boolean);
+    VAR
+      SnookerFrameBreak@1000000003 : Record 50104;
+      LastSnookerFrameBreak@1000000004 : Record 50104;
+      BreakNo@1000000005 : Integer;
+      SnookerFrameScore@1000000006 : Record 50105;
+      ShotNo@1000000007 : Integer;
+    BEGIN
+      LastSnookerFrameBreak.SETRANGE("Snooker Match No.",Rec."Snooker Match No.");
+      LastSnookerFrameBreak.SETRANGE("Snooker Frame No.",Rec."No.");
+      IF LastSnookerFrameBreak.FINDLAST THEN BEGIN
+        BreakNo:=LastSnookerFrameBreak."Snooker Break No.";
+      END ELSE BEGIN
+        BreakNo:=0;
+      END;
+
+
+      IF isNewBreak THEN BEGIN
+        BreakNo:=BreakNo+1;
+        SnookerFrameBreak.INIT;
+        SnookerFrameBreak."Snooker Match No.":=Rec."Snooker Match No.";
+        SnookerFrameBreak."Snooker Frame No.":=Rec."No.";
+        SnookerFrameBreak."Snooker Break No.":=BreakNo;
+        SnookerFrameBreak."Snooker Player No.":=playerNo;
+        SnookerFrameBreak.INSERT;
+      END ELSE BEGIN
+        SnookerFrameBreak.SETRANGE("Snooker Match No.",Rec."Snooker Match No.");
+        SnookerFrameBreak.SETRANGE("Snooker Frame No.",Rec."No.");
+        SnookerFrameBreak.SETRANGE("Snooker Break No.",BreakNo);
+        SnookerFrameBreak.FINDLAST;
+      END;
+
+      SnookerFrameScore.SETRANGE("Snooker Match No.",SnookerFrameBreak."Snooker Match No.");
+      SnookerFrameScore.SETRANGE("Snooker Frame No.",SnookerFrameBreak."Snooker Frame No.");
+      SnookerFrameScore.SETRANGE("Snooker Break No.",SnookerFrameBreak."Snooker Break No.");
+      IF SnookerFrameScore.FINDLAST THEN BEGIN
+        ShotNo:=SnookerFrameScore."Shot No."+1;
+      END ELSE BEGIN
+        ShotNo:=1;
+      END;
+
+
+      {
+      handling of fout (player1)
+      1) player1 score 0
+      2) player1 new Break with +ve score with mininal of 4
+      }
+      SnookerFrameScore.INIT;
+      SnookerFrameScore."Snooker Match No.":=SnookerFrameBreak."Snooker Match No.";
+      SnookerFrameScore."Snooker Frame No.":=SnookerFrameBreak."Snooker Frame No.";
+      SnookerFrameScore."Snooker Break No.":=SnookerFrameBreak."Snooker Break No.";
+      SnookerFrameScore."Shot No.":=ShotNo;
+      IF score >=0 THEN
+        SnookerFrameScore.Score:=score
+      ELSE
+        SnookerFrameScore.Score:=0;
+      SnookerFrameScore."Snooker Player No.":=SnookerFrameBreak."Snooker Player No.";
+      SnookerFrameScore.INSERT;
+
+      IF score <0 THEN BEGIN
+        SnookerFrameBreak.INIT;
+        SnookerFrameBreak."Snooker Match No.":=Rec."Snooker Match No.";
+        SnookerFrameBreak."Snooker Frame No.":=Rec."No.";
+        SnookerFrameBreak."Snooker Break No.":=BreakNo+1;
+        CALCFIELDS("Snooker Player 1 No.","Snooker Player 2 No.");
+        IF "Snooker Player 1 No." = playerNo THEN
+          SnookerFrameBreak."Snooker Player No.":="Snooker Player 2 No."
+        ELSE
+          SnookerFrameBreak."Snooker Player No.":="Snooker Player 1 No.";
+        SnookerFrameBreak.INSERT;
+
+        SnookerFrameScore.INIT;
+        SnookerFrameScore."Snooker Match No.":=SnookerFrameBreak."Snooker Match No.";
+        SnookerFrameScore."Snooker Frame No.":=SnookerFrameBreak."Snooker Frame No.";
+        SnookerFrameScore."Snooker Break No.":=SnookerFrameBreak."Snooker Break No.";
+        SnookerFrameScore."Shot No.":=ShotNo;
+        IF score >-4 THEN
+          SnookerFrameScore.Score:=4
+        ELSE
+          SnookerFrameScore.Score:=score*-1;
+        SnookerFrameScore."Snooker Player No.":=SnookerFrameBreak."Snooker Player No.";
+        SnookerFrameScore.INSERT;
+      END;
+      UpdateClientScreen;
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

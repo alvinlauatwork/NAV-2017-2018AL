@@ -1,0 +1,107 @@
+OBJECT MenuSuite 1051 Dept - Snooker
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:32:20 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+  }
+  MENUNODES
+  {
+    {                ;[{7FD6154D-F047-4A31-B857-0DA1E0BA97D8}] ;NextNodeID=[{E55ED739-BBB9-4063-AF58-225E99C5FE72}] }
+    { MenuItem       ;[{E55ED739-BBB9-4063-AF58-225E99C5FE72}] ;Name=Document Sending Profiles;
+                                                                CaptionML=[ENU=Document Sending Profiles;
+                                                                           NLD=Verzendprofielen van documenten];
+                                                                ApplicationArea=#Basic,#Suite;
+                                                                RunObjectType=Page;
+                                                                RunObjectID=359;
+                                                                Visible=Yes;
+                                                                DepartmentCategory=Lists }
+    { MenuItem       ;[{379BBC3B-5EBB-4617-8419-8D76352F8337}] ;Name=Electronic Document Formats;
+                                                                CaptionML=[ENU=Electronic Document Formats;
+                                                                           NLD=Elektronische documentindelingen];
+                                                                ApplicationArea=#Suite;
+                                                                RunObjectType=Page;
+                                                                RunObjectID=363;
+                                                                Visible=Yes;
+                                                                DepartmentCategory=Tasks }
+    { MenuItem       ;[{8A3934DD-BE0A-4851-B8E0-50A64106B98A}] ;Name=Data Exchange Types;
+                                                                CaptionML=[ENU=Data Exchange Types;
+                                                                           NLD=Typen gegevensuitwisseling];
+                                                                ApplicationArea=#Basic,#Suite;
+                                                                RunObjectType=Page;
+                                                                RunObjectID=1213;
+                                                                Visible=Yes;
+                                                                DepartmentCategory=Administration }
+    { MenuItem       ;[{0D3D0EB4-59D7-4D3E-95AC-49CD269C6C04}] ;Name=Data Migration Settings;
+                                                                AccessByPermission=TableData 1806=R;
+                                                                CaptionML=[ENU=Data Migration Settings;
+                                                                           NLD=Instellingen van gegevensmigratie];
+                                                                ApplicationArea=#Basic,#Suite;
+                                                                RunObjectType=Page;
+                                                                RunObjectID=1807;
+                                                                Visible=Yes;
+                                                                DepartmentCategory=Administration }
+    { MenuItem       ;[{00646221-3EEF-4883-8640-FECFD9BEC705}] ;Name=Report Configuration;
+                                                                AccessByPermission=TableData 2000000196=IMD;
+                                                                CaptionML=[ENU=Report Settings;
+                                                                           NLD=Rapportinstellingen];
+                                                                ApplicationArea=#Basic,#Suite;
+                                                                RunObjectType=Page;
+                                                                RunObjectID=1560;
+                                                                Visible=Yes;
+                                                                DepartmentCategory=Administration }
+    { MenuItem       ;[{A1E3A413-B0C4-4D20-8B1F-AFF7DFFDB43C}] ;Name=Setup and Help Resources;
+                                                                CaptionML=[ENU=Setup and Help Resources;
+                                                                           NLD=Instellings- en Help-resources];
+                                                                ApplicationArea=#Basic,#Suite;
+                                                                RunObjectType=Page;
+                                                                RunObjectID=1822;
+                                                                Visible=Yes;
+                                                                NextNodeID=[{00000000-0000-0000-0000-000000000000}];
+                                                                DepartmentCategory=Administration }
+    {                ;[{19A352FE-D90D-424E-B85F-CF3B8E98CF0E}] ;NextNodeID=[{31D942E8-C760-4AB4-9F40-B130C4E86377}] }
+    { Menu           ;[{31D942E8-C760-4AB4-9F40-B130C4E86377}] ;Name=Snooker;
+                                                                CaptionML=ENU=Snooker;
+                                                                MemberOfMenu=[{31D942E8-C760-4AB4-9F40-B130C4E86377}];
+                                                                ParentNodeID=[{00000000-0000-0000-0000-000000000000}];
+                                                                Image=0;
+                                                                IsShortcut=No;
+                                                                Visible=Yes;
+                                                                Enabled=Yes;
+                                                                NextNodeID=[{00000000-0000-0000-0000-000000000000}];
+                                                                FirstChild=[{8966BD26-B9B9-4F22-B6AF-87ED439CB294}] }
+    { MenuGroup      ;[{8966BD26-B9B9-4F22-B6AF-87ED439CB294}] ;Name=Snooker;
+                                                                CaptionML=ENU=Snooker;
+                                                                MemberOfMenu=[{31D942E8-C760-4AB4-9F40-B130C4E86377}];
+                                                                ParentNodeID=[{31D942E8-C760-4AB4-9F40-B130C4E86377}];
+                                                                Visible=Yes;
+                                                                NextNodeID=[{00000000-0000-0000-0000-000000000000}];
+                                                                FirstChild=[{C0628573-BCF0-40BA-B721-DBFB253B1E55}] }
+    { MenuItem       ;[{C0628573-BCF0-40BA-B721-DBFB253B1E55}] ;Name=Snooker Match List;
+                                                                CaptionML=ENU=Snooker Match List;
+                                                                ApplicationArea=;
+                                                                MemberOfMenu=[{31D942E8-C760-4AB4-9F40-B130C4E86377}];
+                                                                RunObjectType=Page;
+                                                                RunObjectID=50101;
+                                                                ParentNodeID=[{8966BD26-B9B9-4F22-B6AF-87ED439CB294}];
+                                                                Visible=Yes;
+                                                                NextNodeID=[{5D26A0FD-FA7E-4290-8E46-A5D7F0E8E1FB}];
+                                                                DepartmentCategory=Lists }
+    { MenuItem       ;[{5D26A0FD-FA7E-4290-8E46-A5D7F0E8E1FB}] ;Name=Snooker Player List;
+                                                                CaptionML=ENU=Snooker Player List;
+                                                                ApplicationArea=;
+                                                                MemberOfMenu=[{31D942E8-C760-4AB4-9F40-B130C4E86377}];
+                                                                RunObjectType=Page;
+                                                                RunObjectID=50105;
+                                                                ParentNodeID=[{8966BD26-B9B9-4F22-B6AF-87ED439CB294}];
+                                                                Visible=Yes;
+                                                                NextNodeID=[{00000000-0000-0000-0000-000000000000}];
+                                                                DepartmentCategory=Lists }
+  }
+}
+

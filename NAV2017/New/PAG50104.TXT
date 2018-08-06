@@ -1,0 +1,95 @@
+OBJECT Page 50104 Snooker Frame Card
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:46:37 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    InsertAllowed=No;
+    SourceTable=Table50101;
+    PageType=Card;
+    ActionList=ACTIONS
+    {
+      { 1000000014;  ;ActionContainer;
+                      Name=General;
+                      ActionContainerType=NewDocumentItems }
+      { 1000000015;1 ;Action    ;
+                      Name=Score Board;
+                      RunObject=Page 50109;
+                      RunPageLink=Snooker Match No.=FIELD(Snooker Match No.),
+                                  No.=FIELD(No.);
+                      Promoted=Yes;
+                      PromotedIsBig=Yes;
+                      PromotedCategory=Process }
+    }
+  }
+  CONTROLS
+  {
+    { 1000000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1000000001;1;Group  ;
+                Name=General;
+                GroupType=Group }
+
+    { 1000000002;2;Field  ;
+                SourceExpr="Snooker Match No." }
+
+    { 1000000003;2;Field  ;
+                SourceExpr="No." }
+
+    { 1000000011;2;Field  ;
+                SourceExpr=Status }
+
+    { 1000000006;2;Field  ;
+                SourceExpr="Snooker Player 1 Full Name" }
+
+    { 1000000012;2;Field  ;
+                SourceExpr="Snooker Player 1 Max. Break" }
+
+    { 1000000007;2;Field  ;
+                SourceExpr="Snooker Player 1 Total Score" }
+
+    { 1000000008;2;Field  ;
+                SourceExpr="Snooker Player 2 Full Name" }
+
+    { 1000000013;2;Field  ;
+                SourceExpr="Snooker Player 2 Max. Break" }
+
+    { 1000000009;2;Field  ;
+                SourceExpr="Snooker Player 2 Total Score" }
+
+    { 1000000010;2;Field  ;
+                SourceExpr="Winner No." }
+
+    { 1000000004;1;Part   ;
+                Name=SnookerFrameBreakListpart;
+                SubPageLink=Snooker Match No.=FIELD(Snooker Match No.),
+                            Snooker Frame No.=FIELD(No.);
+                PagePartID=Page50107;
+                PartType=Page;
+                UpdatePropagation=Both }
+
+    { 1000000005;1;Part   ;
+                Name=SnookerFrameScoreListpart;
+                SubPageLink=Snooker Match No.=FIELD(Snooker Match No.),
+                            Snooker Frame No.=FIELD(Snooker Frame No.),
+                            Snooker Break No.=FIELD(Snooker Break No.);
+                PagePartID=Page50108;
+                ProviderID=1000000004;
+                PartType=Page;
+                UpdatePropagation=Both }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

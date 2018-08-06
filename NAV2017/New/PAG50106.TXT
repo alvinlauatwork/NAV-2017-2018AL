@@ -1,0 +1,46 @@
+OBJECT Page 50106 Snooker Player Card
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:36:39 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table50103;
+    PageType=Card;
+  }
+  CONTROLS
+  {
+    { 1000000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1000000001;1;Group  ;
+                Name=General;
+                GroupType=Group }
+
+    { 1000000002;2;Field  ;
+                SourceExpr="No.";
+                TableRelation=Contact.No. WHERE (No.=FIELD(No.));
+                DrillDownPageID=Contact Card }
+
+    { 1000000003;2;Field  ;
+                SourceExpr=Name }
+
+    { 1000000004;2;Field  ;
+                SourceExpr="Mobile Phone No." }
+
+    { 1000000005;2;Field  ;
+                SourceExpr="E-Mail" }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

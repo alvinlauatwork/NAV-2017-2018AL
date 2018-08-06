@@ -1,0 +1,123 @@
+OBJECT Table 50102 Snooker Match
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:26:40 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    LookupPageID=Page50001;
+    DrillDownPageID=Page50002;
+  }
+  FIELDS
+  {
+    { 1   ;   ;No.                 ;Code20        ;DataClassification=ToBeClassified }
+    { 2   ;   ;Date                ;Date          ;DataClassification=ToBeClassified }
+    { 3   ;   ;Time                ;Time          ;DataClassification=ToBeClassified }
+    { 4   ;   ;Snooker Player 1 No.;Code20        ;TableRelation="Snooker Player";
+                                                   DataClassification=ToBeClassified }
+    { 5   ;   ;Snooker Player 2 No.;Code20        ;TableRelation="Snooker Player";
+                                                   DataClassification=ToBeClassified }
+    { 6   ;   ;Snooker Player 1 Full Name;Text100 ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Name WHERE (No.=FIELD(Snooker Player 1 No.)));
+                                                   Editable=No }
+    { 7   ;   ;Snooker Player 2 Full Name;Text100 ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Name WHERE (No.=FIELD(Snooker Player 2 No.)));
+                                                   Editable=No }
+    { 8   ;   ;Best of Frames      ;Integer       ;OnValidate=VAR
+                                                                SnookerFrame@1000000000 : Record 50101;
+                                                                i@1000000001 : Integer;
+                                                                currentCount@1000000002 : Integer;
+                                                              BEGIN
+                                                                IF xRec."Best of Frames" <> Rec."Best of Frames" THEN
+                                                                  IF NOT CONFIRM(TxtConfirmChangeFrames,TRUE,xRec."Best of Frames", Rec."Best of Frames") THEN
+                                                                    ERROR('Process stopped');
+
+                                                                SnookerFrame.SETRANGE("Snooker Match No.","No.");
+                                                                currentCount := SnookerFrame.COUNT;
+
+                                                                IF SnookerFrame.FINDLAST THEN
+                                                                  lastFrameNo:=SnookerFrame."No."
+                                                                ELSE
+                                                                  lastFrameNo:=0;
+
+                                                                IF currentCount < Rec."Best of Frames" THEN BEGIN
+                                                                  // add frames
+                                                                  FOR i:=1 TO Rec."Best of Frames" - currentCount DO
+                                                                  BEGIN
+                                                                    SnookerFrame.INIT;
+                                                                    SnookerFrame."Snooker Match No." :="No.";
+                                                                    SnookerFrame."No.":=lastFrameNo+1;
+                                                                    SnookerFrame.INSERT;
+                                                                    lastFrameNo+=1;
+                                                                  END;
+
+                                                                END ELSE IF currentCount > Rec."Best of Frames" THEN BEGIN
+                                                                  // del frames
+                                                                  SnookerFrame.SETRANGE("Snooker Match No.");
+                                                                  SnookerFrame.SETCURRENTKEY("Snooker Match No." ,"No." );
+                                                                  SnookerFrame.SETASCENDING("No.",FALSE);
+                                                                  FOR i:=1 TO currentCount - Rec."Best of Frames"  DO
+                                                                  BEGIN
+                                                                    SnookerFrame.DELETE();
+                                                                    SnookerFrame.NEXT;
+                                                                  END;
+                                                                END ELSE BEGIN
+                                                                  // no change, do nothing
+                                                                END;
+                                                              END;
+
+                                                   DataClassification=ToBeClassified }
+    { 9   ;   ;Status              ;Option        ;DataClassification=ToBeClassified;
+                                                   OptionString=Open,Planned,WIP,Closed }
+    { 10  ;   ;Snooker Player 1 Frame Won;Integer ;FieldClass=FlowField;
+                                                   CalcFormula=Count("Snooker Frame" WHERE (Status=CONST(Closed),
+                                                                                            Winner No.=FIELD(Snooker Player 1 No.),
+                                                                                            Snooker Match No.=FIELD(No.))) }
+    { 11  ;   ;Snooker Player 2 Frames Won;Integer;FieldClass=FlowField;
+                                                   CalcFormula=Count("Snooker Frame" WHERE (Status=CONST(Closed),
+                                                                                            Winner No.=FIELD(Snooker Player 2 No.),
+                                                                                            Snooker Match No.=FIELD(No.))) }
+    { 13  ;   ;Winner No.          ;Code20        ;TableRelation="Snooker Player".No.;
+                                                   OnLookup=VAR
+                                                              SnookerPlayerList@1000000000 : Page 50105;
+                                                              SnookerPlayer@1000000001 : Record 50103;
+                                                            BEGIN
+                                                              {
+                                                              Given that 3 times fout and a miss can lose a frame, let it be a input
+                                                              }
+                                                              CALCFIELDS("Snooker Player 1 No.","Snooker Player 2 No.");
+                                                              SnookerPlayer.SETFILTER("No.", '%1|%2',"Snooker Player 1 No.","Snooker Player 2 No.");
+                                                              SnookerPlayerList.SETTABLEVIEW(SnookerPlayer);
+                                                              SnookerPlayerList.LOOKUPMODE(TRUE);
+                                                              IF SnookerPlayerList.RUNMODAL() = ACTION::LookupOK THEN BEGIN
+                                                                SnookerPlayerList.GETRECORD(SnookerPlayer);
+                                                                "Winner No.":=SnookerPlayer."No.";
+                                                              END;
+                                                            END;
+
+                                                   DataClassification=ToBeClassified }
+    { 14  ;   ;Winner Full Name    ;Text100       ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Name WHERE (No.=FIELD(Winner No.))) }
+  }
+  KEYS
+  {
+    {    ;No.                                     ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+    VAR
+      TxtConfirmChangeFrames@1000000000 : TextConst 'ENU=Are you sure you want to change the number of frame from %1 to %2?';
+      lastFrameNo@1000000001 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

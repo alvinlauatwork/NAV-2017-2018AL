@@ -1,0 +1,44 @@
+OBJECT Modification "Contact Card"(Page 5050)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:32:25 PM];
+    Modified=Yes;
+    Version List=NAVW110.00.00.21440,Snooker;
+  }
+  PROPERTIES
+  {
+    Target="Contact Card"(Page 5050);
+    TargetPageType=ListPlus;
+  }
+  CHANGES
+  {
+    { Insertion         ;InsertAfter=AddAfter:Action 108;
+                         ChangedElements=ActionCollection
+                         {
+                           { 1000000000;3 ;Action    ;
+                                           CaptionML=ENU=Snooker Player;
+                                           ApplicationArea=#Basic,#Suite;
+                                           Image=Customer;
+                                           OnAction=VAR
+                                                      SnookerManagement@1000000000 : Codeunit 50101;
+                                                    BEGIN
+                                                      SnookerManagement."Create Snooker Player From Contact"(Rec);
+                                                    END;
+                                                     }
+                         }
+                          }
+    { PropertyModification;
+                         Property=Version List;
+                         OriginalValue=NAVW110.00.00.21440;
+                         ModifiedValue=NAVW110.00.00.21440,Snooker }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

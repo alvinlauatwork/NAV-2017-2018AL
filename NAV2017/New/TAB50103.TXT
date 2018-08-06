@@ -1,0 +1,72 @@
+OBJECT Table 50103 Snooker Player
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/03/18;
+    Time=[ 5:41:28 PM];
+    Modified=Yes;
+    Version List=Snooker;
+  }
+  PROPERTIES
+  {
+    LookupPageID=Page50105;
+    DrillDownPageID=Page50106;
+  }
+  FIELDS
+  {
+    { 1   ;   ;No.                 ;Code20        ;TableRelation=Contact;
+                                                   DataClassification=ToBeClassified }
+    { 2   ;   ;Name                ;Text100       ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Name WHERE (No.=FIELD(No.)));
+                                                   Editable=No }
+    { 4   ;   ;First Name          ;Text30        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact."First Name" WHERE (No.=FIELD(No.)));
+                                                   CaptionML=[ENU=First Name;
+                                                              NLD=Voornaam];
+                                                   Editable=No }
+    { 5   ;   ;Middle Name         ;Text30        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact."Middle Name" WHERE (No.=FIELD(No.)));
+                                                   CaptionML=[ENU=Middle Name;
+                                                              NLD=Overige namen];
+                                                   Editable=No }
+    { 6   ;   ;Surname             ;Text30        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact."Search Name" WHERE (No.=FIELD(No.)));
+                                                   CaptionML=[ENU=Surname;
+                                                              NLD=Achternaam];
+                                                   Editable=No }
+    { 7   ;   ;Initials            ;Text30        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.Initials WHERE (No.=FIELD(No.)));
+                                                   CaptionML=[ENU=Initials;
+                                                              NLD=Initialen];
+                                                   Editable=No }
+    { 8   ;   ;Mobile Phone No.    ;Text30        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact."Mobile Phone No." WHERE (No.=FIELD(No.)));
+                                                   ExtendedDatatype=Phone No.;
+                                                   CaptionML=[ENU=Mobile Phone No.;
+                                                              NLD=Telefoon (Mobiel)];
+                                                   Editable=No }
+    { 9   ;   ;E-Mail              ;Text80        ;FieldClass=FlowField;
+                                                   CalcFormula=Lookup(Contact.E-Mail WHERE (No.=FIELD(No.)));
+                                                   ExtendedDatatype=E-Mail;
+                                                   CaptionML=[ENU=Email;
+                                                              NLD=E-mail];
+                                                   Editable=No }
+  }
+  KEYS
+  {
+    {    ;No.                                     ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+    VAR
+      TextNameTooLong@1000000000 : TextConst 'ENU=The total length of first name, middle name and surname is %1 character(s)longer than the maximum length allowed for the Name field.;NLD=De totale lengte van voornaam, overige namen en achternaam overschrijdt de maximale lengte van het veld Naam met %1 teken(s).';
+      TextInputTooLong@1000000001 : TextConst 'ENU=The length of %1 is %2 character(s)longer than the maximum length allowed for the %1 field.;NLD=De lengte van %1 overschrijdt de maximaal toegelaten lengte voor het veld %1 met %2 teken(s).';
+
+    BEGIN
+    END.
+  }
+}
+
